@@ -4,6 +4,7 @@
 
 ```
 git config --global alias.amend "commit --amend --no-edit"
+git config --global alias.ap "add --patch"
 git config --global alias.cb "checkout -b"
 git config --global alias.ck "checkout --"
 git config --global alias.db "branch -d"
