@@ -1,4 +1,4 @@
-const gitConfig = (options, gitUtils, actionModule) => {
+const gitConfig = (options, gitUtils, shell, actionModule) => {
   console.log("gitConfig");
 
   // FIXME Inputs: options (config file, action), shell
@@ -29,7 +29,7 @@ const gitConfig = (options, gitUtils, actionModule) => {
   configToApply = configToApply.flat();
   console.log(`configToApply = ${configToApply}`);
 
-  actionModule(configToApply, options.dryRun);
+  actionModule(configToApply, gitUtils, shell, options.dryRun);
 };
 
 module.exports = gitConfig;

@@ -1,4 +1,5 @@
 const { Command, Option } = require("commander");
+const shelljs = require("shelljs");
 const gitConfig = require("./gitConfig");
 const gitUtils = require("./gitUtils");
 const applyModule = require("./applyModule");
@@ -22,4 +23,4 @@ options.configFile =
   program.opts().test || "/c/dev/tools/git-config/git-config.js";
 const action = program.opts().apply ? applyModule : checkModule;
 
-gitConfig(options, gitUtils, action);
+gitConfig(options, gitUtils, shelljs, action);
