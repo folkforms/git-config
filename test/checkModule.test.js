@@ -38,7 +38,7 @@ test("it prints an error when local settings are not correct", () => {
   const localConfigToApply = ["user.name=MyCompanyUserName"];
   checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
   expect(dummyShellJs.echoList).toEqual([
-    "git config user.name MyCompanyUserName",
+    "FAIL: Expected user.name=MyCompanyUserName but was user.name=WrongUsername",
   ]);
 });
 
@@ -52,6 +52,6 @@ test("it prints an error when global settings are not correct", () => {
   const localConfigToApply = [];
   checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
   expect(dummyShellJs.echoList).toEqual([
-    'git config --global alias.cb "checkout -b"',
+    "FAIL: Expected alias.cb=checkout -b but was alias.cb=IncorrectValue",
   ]);
 });
