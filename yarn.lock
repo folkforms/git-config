@@ -1181,6 +1181,11 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
+dummy-shells@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/dummy-shells/-/dummy-shells-0.0.9.tgz#5caf4fb24f4dea6ad85f3fcdcbdd59ad295de3be"
+  integrity sha512-qrwR+I5S8ykIc8TdiuTdenctgS1Xx/CGDVPYmo66rpqbsjO9/ciUWycq0I8MlmweL2CJUDjzXUmSvw4B5IS0GQ==
+
 electron-to-chromium@^1.4.668:
   version "1.4.749"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.749.tgz#9869e2e258141da26a2272b58264584c3461279d"
