@@ -1,10 +1,6 @@
 {
   "patternMatching": [
     {
-      "type": "global",
-      "patterns": [".*"]
-    },
-    {
       "type": "companyInternal",
       "patterns": [".*company-internal.*/.*\\.git"]
     },

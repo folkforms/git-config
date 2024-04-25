@@ -1,19 +1,33 @@
-const checkModule = (configToApply, gitUtils, shell, dryRun) => {
+const checkModule = (
+  globalConfigToApply,
+  localConfigToApply,
+  gitUtils,
+  shell,
+  dryRun,
+) => {
   const globalConfig = convertToObjects(gitUtils.getGlobalConfig());
   const localConfig = convertToObjects(gitUtils.getLocalConfig());
-  console.log(`globalConfig = ${JSON.stringify(globalConfig)}`);
-  console.log(`localConfig = ${JSON.stringify(localConfig)}`);
   const mergedConfig = { ...globalConfig, ...localConfig };
-  console.log(`mergedConfig = ${JSON.stringify(mergedConfig)}`);
 
-  const configToApplyAsObjects = convertToObjects(configToApply);
-  console.log(
-    `configToApplyAsObjects = ${JSON.stringify(configToApplyAsObjects)}`,
-  );
+  const globalConfigToApplyAsObjects = convertToObjects(globalConfigToApply);
+  Object.keys(globalConfigToApplyAsObjects).forEach((key) => {
+    if (mergedConfig[key] !== globalConfigToApplyAsObjects[key]) {
+      let value = globalConfigToApplyAsObjects[key];
+      if (key.startsWith("alias.")) {
+        value = `"${value}"`;
+      }
+      shell.echo(`git config --global ${key} ${value}`);
+    }
+  });
 
-  Object.keys(configToApplyAsObjects).forEach((key) => {
-    if (mergedConfig[key] !== configToApplyAsObjects[key]) {
-      shell.echo(`git config ${key} ${configToApplyAsObjects[key]}`);
+  const localConfigToApplyAsObjects = convertToObjects(localConfigToApply);
+  Object.keys(localConfigToApplyAsObjects).forEach((key) => {
+    if (mergedConfig[key] !== localConfigToApplyAsObjects[key]) {
+      let value = localConfigToApplyAsObjects[key];
+      if (key.startsWith("alias.")) {
+        value = `"${value}"`;
+      }
+      shell.echo(`git config ${key} ${localConfigToApplyAsObjects[key]}`);
     }
   });
 };

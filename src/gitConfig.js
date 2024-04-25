@@ -11,15 +11,25 @@ const gitConfig = (options, gitUtils, shell, actionModule) => {
     });
   });
 
-  let configToApply = [];
+  const globalConfigToApply = config.config.filter(
+    (item) => item.type === "global",
+  )[0].settings;
+
+  let localConfigToApply = [];
   config.config.forEach((item) => {
     if (foundTypes.includes(item.type)) {
-      configToApply.push(item.settings);
+      localConfigToApply.push(item.settings);
     }
   });
-  configToApply = configToApply.flat();
+  localConfigToApply = localConfigToApply.flat();
 
-  actionModule(configToApply, gitUtils, shell, options.dryRun);
+  actionModule(
+    globalConfigToApply,
+    localConfigToApply,
+    gitUtils,
+    shell,
+    options.dryRun,
+  );
 };
 
 module.exports = gitConfig;

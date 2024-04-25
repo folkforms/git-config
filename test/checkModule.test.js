@@ -8,8 +8,9 @@ test("it does nothing when settings are already correct globally and local setti
     globalConfig: ["user.name=CorrectUsername"],
     localConfig: [],
   });
-  const configToApply = ["user.name=CorrectUsername"];
-  checkModule(configToApply, gitUtils, dummyShellJs);
+  const globalConfigToApply = [];
+  const localConfigToApply = ["user.name=CorrectUsername"];
+  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
   expect(dummyShellJs.echoList).toEqual([]);
 });
 
@@ -21,20 +22,36 @@ test("it does nothing when settings are already correct locally", () => {
     ],
     localConfig: ["user.name=CorrectUsername"],
   });
-  const configToApply = ["user.name=CorrectUsername"];
-  checkModule(configToApply, gitUtils, dummyShellJs);
+  const globalConfigToApply = [];
+  const localConfigToApply = ["user.name=CorrectUsername"];
+  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
   expect(dummyShellJs.echoList).toEqual([]);
 });
 
-test("it prints an error when settings are not correct", () => {
+test("it prints an error when local settings are not correct", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
     globalConfig: ["user.name=ArbitraryUserName"],
     localConfig: ["user.name=WrongUsername"],
   });
-  const configToApply = ["user.name=MyCompanyUserName"];
-  checkModule(configToApply, gitUtils, dummyShellJs);
+  const globalConfigToApply = [];
+  const localConfigToApply = ["user.name=MyCompanyUserName"];
+  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
   expect(dummyShellJs.echoList).toEqual([
     "git config user.name MyCompanyUserName",
+  ]);
+});
+
+test("it prints an error when global settings are not correct", () => {
+  dummyShellJs._clear();
+  const gitUtils = dummyGitUtils({
+    globalConfig: ["alias.cb=IncorrectValue"],
+    localConfig: [],
+  });
+  const globalConfigToApply = ["alias.cb=checkout -b"];
+  const localConfigToApply = [];
+  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  expect(dummyShellJs.echoList).toEqual([
+    'git config --global alias.cb "checkout -b"',
   ]);
 });
