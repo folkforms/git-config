@@ -1,0 +1,44 @@
+{
+  "types": ["global", "companyInternal", "companyPublic"],
+  "patternMatching": [
+    {
+      "type": "global",
+      "patterns": [".*"]
+    },
+    {
+      "type": "companyInternal",
+      "patterns": ["company-enterprise/.*\\.git"]
+    },
+    {
+      "type": "companyPublic",
+      "patterns": ["company-public/.*\\.git"]
+    }
+  ],
+  "config": [
+    {
+      "type": "global",
+      "settings": [
+        "alias.amend=commit --amend --no-edit",
+        "alias.cb=checkout -b"
+      ]
+    },
+    {
+      "type": "companyInternal",
+      "settings": [
+        "user.name=MyCompanyUserName",
+        "user.email=mycompanyemail@company.com",
+        "user.signingkey=SomeSigningKey",
+        "commit.gpgsign=true"
+      ]
+    },
+    {
+      "type": "companyPublic",
+      "settings": [
+        "user.name=MyPersonalUserName",
+        "user.email=mypersonalemail@example.com",
+        "user.signingkey=",
+        "commit.gpgsign=false"
+      ]
+    }
+  ]
+}
