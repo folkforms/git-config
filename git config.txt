@@ -1,0 +1,53 @@
+Git config
+
+## All repos, both personal and private
+
+alias.amend=...
+alias.cb=...
+
+## Merative internal repos
+
+user.name=...
+user.email=...
+user.signingkey=71103F7E7486375F
+commit.gpgsign=true
+
+## Merative public repos
+
+user.name=...
+user.email=...
+user.signingkey=
+commit.gpgsign=false
+
+----
+
+What about a script that takes config and applies it to a repo?
+
+E.g.
+
+{
+  "types": [ "global", "merativeInternal", "merativePublic" ],
+  "patternMatching": [
+    "global": ".*",
+    "merativeInternal": [ "spm-enterprise/.*\.git" ],
+    "merativePublic": [ merative/.*\.git" ]
+  ],
+  "config": [
+    "global": [
+      "alias.amend=...",
+      "alias.cb=..."
+    ],
+    "merativeInternal": [
+      "user.name=Alan Bergin",
+      "user.email=alan.bergin@merative.com",
+      "user.signingkey=71103F7E7486375F",
+      "commit.gpgsign=true"
+    ],
+    "merativePublic": [
+      "user.name=folkforms"
+      "user.email=alan.bergin@gmail.com"
+      "user.signingkey="
+      "commit.gpgsign=false"
+    ]
+  ]
+}
