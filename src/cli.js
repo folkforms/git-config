@@ -1,8 +1,8 @@
-const shelljs = require("shelljs");
-const { dryRunShellJs } = require("dummy-shells");
 const { Command, Option } = require("commander");
 const gitConfig = require("./gitConfig");
 const gitUtils = require("./gitUtils");
+const applyModule = require("./applyModule");
+const checkModule = require("./checkModule");
 
 const program = new Command();
 program
@@ -17,12 +17,9 @@ program
   .parse();
 
 const options = {};
-options.action = "check";
-if (program.opts().apply) {
-  options.action = "apply";
-}
+options.dryRun = !!program.opts().dryRun;
 options.configFile =
   program.opts().test || "/c/dev/tools/git-config/git-config.js";
-const shell = program.opts().dryRun ? dryRunShellJs : shelljs;
+const action = program.opts().apply ? applyModule : checkModule;
 
-gitConfig(options, gitUtils, shell);
+gitConfig(options, gitUtils, action);

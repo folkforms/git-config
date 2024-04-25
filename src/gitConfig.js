@@ -1,4 +1,4 @@
-const gitConfig = (options, gitUtils, shelljs) => {
+const gitConfig = (options, gitUtils, actionModule) => {
   console.log("gitConfig");
 
   // FIXME Inputs: options (config file, action), shell
@@ -20,8 +20,16 @@ const gitConfig = (options, gitUtils, shelljs) => {
   });
   console.log(`foundTypes = ${foundTypes}`);
 
-  // FIXME Outputs:
-  // ...
+  let configToApply = [];
+  config.config.forEach((item) => {
+    if (foundTypes.includes(item.type)) {
+      configToApply.push(item.settings);
+    }
+  });
+  configToApply = configToApply.flat();
+  console.log(`configToApply = ${configToApply}`);
+
+  actionModule(configToApply, options.dryRun);
 };
 
 module.exports = gitConfig;
