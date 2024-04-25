@@ -1,7 +1,8 @@
 const checkModule = (configToApply, gitUtils, shell, dryRun) => {
-  console.log("checkModule ok");
-
-  // Call shells
+  // Call shell with each configToApply
+  configToApply.forEach((item) => {
+    shell.echo(item);
+  });
 };
 
 module.exports = checkModule;
