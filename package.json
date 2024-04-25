@@ -12,7 +12,8 @@
   "lint-staged": {
     "*": [
       "npx prettier --write .",
-      "npx eslint --quiet --fix"
+      "npx eslint --quiet --fix",
+      "yarn test"
     ]
   },
   "scripts": {
