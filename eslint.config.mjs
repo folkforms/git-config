@@ -5,26 +5,20 @@ import jest from "eslint-plugin-jest";
 export default [
   {
     files: ["**/*.js"],
-    languageOptions: { sourceType: "commonjs" },
-  },
-  {
     languageOptions: {
+      sourceType: "commonjs",
       globals: {
         ...globals.browser,
         ...globals.jest,
       },
     },
-  },
-  {
     rules: {
       ...jest.configs.recommended.rules,
     },
-  },
-  pluginJs.configs.recommended,
-  {
-    plugins: { jest },
-  },
-  {
+    plugins: {
+      ...pluginJs.configs.recommended,
+      jest,
+    },
     ignores: ["yarn.lock"],
   },
 ];
