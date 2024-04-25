@@ -1,9 +1,8 @@
-const checkModule = (
+const _sharedModule = (
   globalConfigToApply,
   localConfigToApply,
   gitUtils,
-  shell,
-  dryRun,
+  func,
 ) => {
   const globalConfig = convertToObjects(gitUtils.getGlobalConfig());
   const localConfig = convertToObjects(gitUtils.getLocalConfig());
@@ -16,7 +15,7 @@ const checkModule = (
       if (key.startsWith("alias.")) {
         value = `"${value}"`;
       }
-      shell.echo(`git config --global ${key} ${value}`);
+      func(key, value, true);
     }
   });
 
@@ -27,7 +26,7 @@ const checkModule = (
       if (key.startsWith("alias.")) {
         value = `"${value}"`;
       }
-      shell.echo(`git config ${key} ${localConfigToApplyAsObjects[key]}`);
+      func(key, value, false);
     }
   });
 };
@@ -43,4 +42,34 @@ const convertToObjects = (arr) => {
   return out;
 };
 
-module.exports = checkModule;
+const checkModule = (
+  globalConfigToApply,
+  localConfigToApply,
+  gitUtils,
+  shell,
+) =>
+  _sharedModule(
+    globalConfigToApply,
+    localConfigToApply,
+    gitUtils,
+    (key, value, isGlobal) => {
+      shell.echo(`git config ${isGlobal ? "--global " : ""}${key} ${value}`);
+    },
+  );
+
+const applyModule = (
+  globalConfigToApply,
+  localConfigToApply,
+  gitUtils,
+  shell,
+) =>
+  _sharedModule(
+    globalConfigToApply,
+    localConfigToApply,
+    gitUtils,
+    (key, value, isGlobal) => {
+      shell.exec(`git config ${isGlobal ? "--global " : ""}${key} ${value}`);
+    },
+  );
+
+module.exports = { checkModule, applyModule };

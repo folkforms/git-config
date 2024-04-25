@@ -1,6 +1,6 @@
 const { dummyShellJs } = require("dummy-shells");
 const dummyGitUtils = require("./dummyGitUtils");
-const { checkModule } = require("../src/sharedModule");
+const { applyModule } = require("../src/sharedModule");
 
 test("it does nothing when settings are already correct globally and local setting is not set", () => {
   dummyShellJs._clear();
@@ -10,8 +10,8 @@ test("it does nothing when settings are already correct globally and local setti
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=CorrectUsername"];
-  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
-  expect(dummyShellJs.echoList).toEqual([]);
+  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  expect(dummyShellJs.execList).toEqual([]);
 });
 
 test("it does nothing when settings are already correct locally", () => {
@@ -24,11 +24,11 @@ test("it does nothing when settings are already correct locally", () => {
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=CorrectUsername"];
-  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
-  expect(dummyShellJs.echoList).toEqual([]);
+  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  expect(dummyShellJs.execList).toEqual([]);
 });
 
-test("it prints an error when local settings are not correct", () => {
+test("it runs the correct command when local settings are not correct", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
     globalConfig: ["user.name=ArbitraryUserName"],
@@ -36,13 +36,13 @@ test("it prints an error when local settings are not correct", () => {
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=MyCompanyUserName"];
-  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
-  expect(dummyShellJs.echoList).toEqual([
+  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  expect(dummyShellJs.execList).toEqual([
     "git config user.name MyCompanyUserName",
   ]);
 });
 
-test("it prints an error when global settings are not correct", () => {
+test("it the correct command when global settings are not correct", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
     globalConfig: ["alias.cb=IncorrectValue"],
@@ -50,8 +50,8 @@ test("it prints an error when global settings are not correct", () => {
   });
   const globalConfigToApply = ["alias.cb=checkout -b"];
   const localConfigToApply = [];
-  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
-  expect(dummyShellJs.echoList).toEqual([
+  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  expect(dummyShellJs.execList).toEqual([
     'git config --global alias.cb "checkout -b"',
   ]);
 });
