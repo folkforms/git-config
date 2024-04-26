@@ -1,4 +1,4 @@
-const _sharedModule = (
+const sharedModule = (
   globalConfigToApply,
   localConfigToApply,
   gitUtils,
@@ -36,40 +36,4 @@ const convertToObjects = (arr) => {
   return out;
 };
 
-// FIXME Move these into their own files
-const checkModule = (
-  globalConfigToApply,
-  localConfigToApply,
-  gitUtils,
-  shell,
-) =>
-  _sharedModule(
-    globalConfigToApply,
-    localConfigToApply,
-    gitUtils,
-    (key, value, _, mergedConfigValue) => {
-      shell.echo(
-        `FAIL: Expected ${key}=${value} but was ${key}=${mergedConfigValue}`,
-      );
-    },
-  );
-
-const applyModule = (
-  globalConfigToApply,
-  localConfigToApply,
-  gitUtils,
-  shell,
-) =>
-  _sharedModule(
-    globalConfigToApply,
-    localConfigToApply,
-    gitUtils,
-    (key, value, isGlobal) => {
-      if (key.startsWith("alias.")) {
-        value = `"${value}"`;
-      }
-      shell.exec(`git config ${isGlobal ? "--global " : ""}${key} ${value}`);
-    },
-  );
-
-module.exports = { checkModule, applyModule };
+module.exports = sharedModule;

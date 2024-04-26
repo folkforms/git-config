@@ -1,6 +1,6 @@
 const { dummyShellJs } = require("dummy-shells");
 const dummyGitUtils = require("./dummyGitUtils");
-const { applyModule } = require("../src/sharedModule");
+const applyModule = require("../src/applyModule");
 
 test("it does nothing when settings are already correct globally and local setting is not set", () => {
   dummyShellJs._clear();
