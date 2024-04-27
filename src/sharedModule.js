@@ -3,6 +3,7 @@ const sharedModule = (
   localConfigToApply,
   gitUtils,
   func,
+  dryRun,
 ) => {
   const globalConfig = convertToObjects(gitUtils.getGlobalConfig());
   const localConfig = convertToObjects(gitUtils.getLocalConfig());
@@ -12,7 +13,7 @@ const sharedModule = (
   Object.keys(globalConfigToApplyAsObjects).forEach((key) => {
     if (mergedConfig[key] !== globalConfigToApplyAsObjects[key]) {
       let value = globalConfigToApplyAsObjects[key];
-      func(key, value, true, mergedConfig[key]);
+      func(key, value, true, mergedConfig[key], dryRun);
     }
   });
 
@@ -20,7 +21,7 @@ const sharedModule = (
   Object.keys(localConfigToApplyAsObjects).forEach((key) => {
     if (mergedConfig[key] !== localConfigToApplyAsObjects[key]) {
       let value = localConfigToApplyAsObjects[key];
-      func(key, value, false, mergedConfig[key]);
+      func(key, value, false, mergedConfig[key], dryRun);
     }
   });
 };

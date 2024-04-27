@@ -5,6 +5,7 @@ const applyModule = (
   localConfigToApply,
   gitUtils,
   shell,
+  dryRun,
 ) =>
   sharedModule(
     globalConfigToApply,
@@ -14,10 +15,13 @@ const applyModule = (
       if (key.startsWith("alias.")) {
         value = `"${value}"`;
       }
-      if (value) {
-        shell.exec(`git config ${isGlobal ? "--global " : ""}${key} ${value}`);
+      const cmd = value
+        ? `git config ${isGlobal ? "--global " : ""}${key} ${value}`
+        : `git config ${isGlobal ? "--global " : ""}unset ${key}`;
+      if (!dryRun) {
+        shell.exec(cmd);
       } else {
-        shell.exec(`git config ${isGlobal ? "--global " : ""}unset ${key}`);
+        shell.echo(`DRY RUN: ${cmd}`);
       }
     },
   );
