@@ -2,8 +2,10 @@ const sharedModule = (
   globalConfigToApply,
   localConfigToApply,
   gitUtils,
-  func,
-  dryRun,
+  funcFailure,
+  funcSuccess,
+  dryRun = false,
+  quiet = false,
 ) => {
   const globalConfig = convertToObjects(gitUtils.getGlobalConfig().split("\n"));
   const localConfig = convertToObjects(gitUtils.getLocalConfig().split("\n"));
@@ -11,17 +13,21 @@ const sharedModule = (
 
   const globalConfigToApplyAsObjects = convertToObjects(globalConfigToApply);
   Object.keys(globalConfigToApplyAsObjects).forEach((key) => {
-    if (mergedConfig[key] !== globalConfigToApplyAsObjects[key]) {
-      let value = globalConfigToApplyAsObjects[key];
-      func(key, value, true, mergedConfig[key], dryRun);
+    let value = globalConfigToApplyAsObjects[key];
+    if (mergedConfig[key] !== value) {
+      funcFailure(key, value, true, mergedConfig[key], dryRun);
+    } else {
+      funcSuccess(key, value, quiet);
     }
   });
 
   const localConfigToApplyAsObjects = convertToObjects(localConfigToApply);
   Object.keys(localConfigToApplyAsObjects).forEach((key) => {
-    if (mergedConfig[key] !== localConfigToApplyAsObjects[key]) {
-      let value = localConfigToApplyAsObjects[key];
-      func(key, value, false, mergedConfig[key], dryRun);
+    let value = localConfigToApplyAsObjects[key];
+    if (mergedConfig[key] !== value) {
+      funcFailure(key, value, false, mergedConfig[key], dryRun);
+    } else {
+      funcSuccess(key, value, quiet);
     }
   });
 };

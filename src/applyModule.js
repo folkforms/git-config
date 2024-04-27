@@ -6,6 +6,7 @@ const applyModule = (
   gitUtils,
   shell,
   dryRun,
+  quiet,
 ) =>
   sharedModule(
     globalConfigToApply,
@@ -24,6 +25,13 @@ const applyModule = (
         shell.echo(`DRY RUN: ${cmd}`);
       }
     },
+    (key, value, quiet) => {
+      if (!quiet) {
+        shell.echo(`OK: ${key}=${value}`);
+      }
+    },
+    dryRun,
+    quiet,
   );
 
 module.exports = applyModule;

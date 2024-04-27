@@ -13,12 +13,14 @@ program
     "-n, --dry-run",
     "Print what commands would be run, without actually running anything",
   )
+  .option("-q, --quiet", "Do not print success messages")
   .option("-v, --version", "Print version")
   .addOption(new Option("--test <config-file>").hideHelp())
   .parse();
 
 const options = {};
 options.dryRun = !!program.opts().dryRun;
+options.quiet = !!program.opts().quiet;
 options.configFile =
   program.opts().test || "/c/dev/tools/git-config/git-config.js";
 const action = program.opts().apply ? applyModule : checkModule;

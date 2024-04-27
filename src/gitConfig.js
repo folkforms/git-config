@@ -31,6 +31,7 @@ const gitConfig = (options, gitUtils, shell, actionModule) => {
     gitUtils,
     shell,
     options.dryRun,
+    options.quiet,
   );
 };
 

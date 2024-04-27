@@ -10,7 +10,14 @@ test("it does nothing when settings are already correct globally and local setti
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=CorrectUsername"];
-  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  applyModule(
+    globalConfigToApply,
+    localConfigToApply,
+    gitUtils,
+    dummyShellJs,
+    false,
+    true,
+  );
   expect(dummyShellJs.execList).toEqual([]);
 });
 
@@ -23,7 +30,14 @@ test("it does nothing when settings are already correct locally", () => {
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=CorrectUsername"];
-  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  applyModule(
+    globalConfigToApply,
+    localConfigToApply,
+    gitUtils,
+    dummyShellJs,
+    false,
+    true,
+  );
   expect(dummyShellJs.execList).toEqual([]);
 });
 
@@ -35,7 +49,14 @@ test("it runs the correct command when local settings are not correct", () => {
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=MyCompanyUserName"];
-  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  applyModule(
+    globalConfigToApply,
+    localConfigToApply,
+    gitUtils,
+    dummyShellJs,
+    false,
+    true,
+  );
   expect(dummyShellJs.execList).toEqual([
     "git config user.name MyCompanyUserName",
   ]);
@@ -49,7 +70,14 @@ test("it run the correct command when global settings are not correct", () => {
   });
   const globalConfigToApply = ["alias.cb=checkout -b"];
   const localConfigToApply = [];
-  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  applyModule(
+    globalConfigToApply,
+    localConfigToApply,
+    gitUtils,
+    dummyShellJs,
+    false,
+    true,
+  );
   expect(dummyShellJs.execList).toEqual([
     'git config --global alias.cb "checkout -b"',
   ]);
@@ -63,6 +91,13 @@ test("it runs the correct command to unset a local setting", () => {
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.signingkey="];
-  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  applyModule(
+    globalConfigToApply,
+    localConfigToApply,
+    gitUtils,
+    dummyShellJs,
+    false,
+    true,
+  );
   expect(dummyShellJs.execList).toEqual(["git config --unset user.signingkey"]);
 });
