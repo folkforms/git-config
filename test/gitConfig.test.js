@@ -19,7 +19,7 @@ test("it matches repo patterns", () => {
   };
 
   gitConfig(
-    { configFile: "../test/test-git-config.json" },
+    { configFile: "./test/test-git-config.json" },
     gitUtils,
     null,
     testModule,

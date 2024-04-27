@@ -17,7 +17,7 @@ const applyModule = (
       }
       const cmd = value
         ? `git config ${isGlobal ? "--global " : ""}${key} ${value}`
-        : `git config ${isGlobal ? "--global " : ""}unset ${key}`;
+        : `git config ${isGlobal ? "--global " : ""}--unset ${key}`;
       if (!dryRun) {
         shell.exec(cmd);
       } else {

@@ -5,8 +5,8 @@ const sharedModule = (
   func,
   dryRun,
 ) => {
-  const globalConfig = convertToObjects(gitUtils.getGlobalConfig());
-  const localConfig = convertToObjects(gitUtils.getLocalConfig());
+  const globalConfig = convertToObjects(gitUtils.getGlobalConfig().split("\n"));
+  const localConfig = convertToObjects(gitUtils.getLocalConfig().split("\n"));
   const mergedConfig = { ...globalConfig, ...localConfig };
 
   const globalConfigToApplyAsObjects = convertToObjects(globalConfigToApply);

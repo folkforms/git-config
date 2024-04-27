@@ -5,8 +5,8 @@ const applyModule = require("../src/applyModule");
 test("it does nothing when settings are already correct globally and local setting is not set", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
-    globalConfig: ["user.name=CorrectUsername"],
-    localConfig: [],
+    globalConfig: "user.name=CorrectUsername",
+    localConfig: "",
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=CorrectUsername"];
@@ -17,10 +17,9 @@ test("it does nothing when settings are already correct globally and local setti
 test("it does nothing when settings are already correct locally", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
-    globalConfig: [
+    globalConfig:
       "user.name=IncorrectUsernameButItWillBeIgnoredDueToCorrectLocalUsername",
-    ],
-    localConfig: ["user.name=CorrectUsername"],
+    localConfig: "user.name=CorrectUsername",
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=CorrectUsername"];
@@ -31,8 +30,8 @@ test("it does nothing when settings are already correct locally", () => {
 test("it runs the correct command when local settings are not correct", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
-    globalConfig: ["user.name=ArbitraryUserName"],
-    localConfig: ["user.name=WrongUsername"],
+    globalConfig: "user.name=ArbitraryUserName",
+    localConfig: "user.name=WrongUsername",
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=MyCompanyUserName"];
@@ -45,8 +44,8 @@ test("it runs the correct command when local settings are not correct", () => {
 test("it run the correct command when global settings are not correct", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
-    globalConfig: ["alias.cb=IncorrectValue"],
-    localConfig: [],
+    globalConfig: "alias.cb=IncorrectValue",
+    localConfig: "",
   });
   const globalConfigToApply = ["alias.cb=checkout -b"];
   const localConfigToApply = [];
@@ -59,11 +58,11 @@ test("it run the correct command when global settings are not correct", () => {
 test("it runs the correct command to unset a local setting", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
-    globalConfig: [],
-    localConfig: ["user.signingkey=ShouldBeUnset"],
+    globalConfig: "",
+    localConfig: "user.signingkey=ShouldBeUnset",
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.signingkey="];
   applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
-  expect(dummyShellJs.execList).toEqual(["git config unset user.signingkey"]);
+  expect(dummyShellJs.execList).toEqual(["git config --unset user.signingkey"]);
 });

@@ -7,7 +7,7 @@
   "author": "folkforms",
   "license": "MIT",
   "bin": {
-    "gitconfig": "./src/cli.js"
+    "gitconfig": "node ./src/cli.js"
   },
   "lint-staged": {
     "*": [
@@ -28,6 +28,7 @@
     "dummy-shells": "^0.0.9",
     "eslint": "^9.1.1",
     "eslint-plugin-jest": "^28.2.0",
+    "fs-extra": "^11.2.0",
     "globals": "^15.0.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",

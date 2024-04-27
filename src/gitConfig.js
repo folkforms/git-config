@@ -1,5 +1,7 @@
+const fs = require("fs");
+
 const gitConfig = (options, gitUtils, shell, actionModule) => {
-  const config = require(options.configFile);
+  const config = JSON.parse(fs.readFileSync(options.configFile, "utf8"));
   const remoteUrl = gitUtils.getRemoteUrl();
 
   const foundTypes = [];
