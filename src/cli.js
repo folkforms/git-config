@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { Command, Option } = require("commander");
 const shelljs = require("shelljs");
 const gitConfig = require("./gitConfig");
