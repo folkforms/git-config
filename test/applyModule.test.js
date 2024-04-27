@@ -42,7 +42,7 @@ test("it runs the correct command when local settings are not correct", () => {
   ]);
 });
 
-test("it the correct command when global settings are not correct", () => {
+test("it run the correct command when global settings are not correct", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
     globalConfig: ["alias.cb=IncorrectValue"],
@@ -54,4 +54,16 @@ test("it the correct command when global settings are not correct", () => {
   expect(dummyShellJs.execList).toEqual([
     'git config --global alias.cb "checkout -b"',
   ]);
+});
+
+test("it runs the correct command to unset a local setting", () => {
+  dummyShellJs._clear();
+  const gitUtils = dummyGitUtils({
+    globalConfig: [],
+    localConfig: ["user.signingkey=ShouldBeUnset"],
+  });
+  const globalConfigToApply = [];
+  const localConfigToApply = ["user.signingkey="];
+  applyModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  expect(dummyShellJs.execList).toEqual(["git config unset user.signingkey"]);
 });

@@ -14,7 +14,11 @@ const applyModule = (
       if (key.startsWith("alias.")) {
         value = `"${value}"`;
       }
-      shell.exec(`git config ${isGlobal ? "--global " : ""}${key} ${value}`);
+      if (value) {
+        shell.exec(`git config ${isGlobal ? "--global " : ""}${key} ${value}`);
+      } else {
+        shell.exec(`git config ${isGlobal ? "--global " : ""}unset ${key}`);
+      }
     },
   );
 

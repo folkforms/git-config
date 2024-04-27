@@ -55,3 +55,17 @@ test("it prints an error when global settings are not correct", () => {
     "FAIL: Expected alias.cb=checkout -b but was alias.cb=IncorrectValue",
   ]);
 });
+
+test("it prints an error when a local setting that should be unset is set", () => {
+  dummyShellJs._clear();
+  const gitUtils = dummyGitUtils({
+    globalConfig: [],
+    localConfig: ["user.signingkey=ShouldBeUnset"],
+  });
+  const globalConfigToApply = [];
+  const localConfigToApply = ["user.signingkey="];
+  checkModule(globalConfigToApply, localConfigToApply, gitUtils, dummyShellJs);
+  expect(dummyShellJs.echoList).toEqual([
+    "FAIL: Expected user.signingkey= but was user.signingkey=ShouldBeUnset",
+  ]);
+});
