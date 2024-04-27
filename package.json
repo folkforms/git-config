@@ -1,5 +1,5 @@
 {
-  "name": "git-config",
+  "name": "@folkforms/git-config",
   "version": "0.0.1",
   "description": "Automatically applies Git configuration options based on regex match of repo path",
   "main": "index.js",
@@ -7,7 +7,7 @@
   "author": "folkforms",
   "license": "MIT",
   "bin": {
-    "git-config": "./src/cli.js"
+    "gitconfig": "./src/cli.js"
   },
   "lint-staged": {
     "*": [
@@ -19,6 +19,7 @@
   "scripts": {
     "cli": "node ./src/cli.js",
     "prepare": "husky",
+    "release": "npm-release",
     "test": "jest ./test"
   },
   "dependencies": {
@@ -27,6 +28,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.1.1",
+    "@folkforms/line-endings": "^0.0.12",
+    "@folkforms/npm-release": "^0.0.26",
     "dummy-shells": "^0.0.9",
     "eslint": "^9.1.1",
     "eslint-plugin-jest": "^28.2.0",
