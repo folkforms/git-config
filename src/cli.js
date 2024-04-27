@@ -24,7 +24,7 @@ const options = {};
 options.dryRun = !!program.opts().dryRun;
 options.quiet = !!program.opts().quiet;
 options.configFile =
-  program.opts().test || "/c/dev/tools/git-config/git-config.js";
+  program.opts().test || "c:/dev/tools/git-config/git-config.js";
 const action = program.opts().apply ? applyModule : checkModule;
 
 gitConfig(options, gitUtils, shelljs, action);
