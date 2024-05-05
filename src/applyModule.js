@@ -21,13 +21,16 @@ const applyModule = (
         : `git config ${isGlobal ? "--global " : ""}--unset ${key}`;
       if (!dryRun) {
         shell.exec(cmd);
+        shell.echo(`APPLIED: ${cmd}`);
       } else {
-        shell.echo(`DRY RUN: ${cmd}`);
+        shell.echo(`DRY RUN: APPLIED: ${cmd}`);
       }
     },
-    (key, value, quiet) => {
+    (key, value, isGlobal, quiet) => {
       if (!quiet) {
-        shell.echo(`OK: ${key}=${value}`);
+        shell.echo(
+          `ALREADY SET${isGlobal ? " (Global)" : ""}: ${key}=${value}`,
+        );
       }
     },
     dryRun,

@@ -1,21 +1,32 @@
 const fs = require("fs");
 
 const gitConfig = (options, gitUtils, shell, actionModule) => {
+  if (!options.debug) {
+    console.debug = () => {};
+  }
   const config = JSON.parse(fs.readFileSync(options.configFile, "utf8"));
-  const remoteUrl = gitUtils.getRemoteUrl();
+  console.debug(`config = ${JSON.stringify(config)}`);
+
+  let url = gitUtils.getRemoteUrl();
+  if (options.usePath) {
+    url = process.cwd().replaceAll("\\", "/");
+  }
+  console.debug(`url = ${url}`);
 
   const foundTypes = [];
   config.patternMatching.forEach((item) => {
     item.patterns.forEach((pattern) => {
-      if (remoteUrl.match(pattern)) {
+      if (url.match(pattern)) {
         foundTypes.push(item.type);
       }
     });
   });
+  console.debug(`foundTypes = ${JSON.stringify(foundTypes)}`);
 
   const globalConfigToApply = config.config.filter(
     (item) => item.type === "global",
   )[0].settings;
+  console.debug(`globalConfigToApply = ${JSON.stringify(globalConfigToApply)}`);
 
   let localConfigToApply = [];
   config.config.forEach((item) => {
@@ -24,6 +35,7 @@ const gitConfig = (options, gitUtils, shell, actionModule) => {
     }
   });
   localConfigToApply = localConfigToApply.flat();
+  console.debug(`localConfigToApply = ${JSON.stringify(localConfigToApply)}`);
 
   actionModule(
     globalConfigToApply,

@@ -2,11 +2,11 @@
   "patternMatching": [
     {
       "type": "companyInternal",
-      "patterns": [".*company-internal.*/.*\\.git"]
+      "patterns": ["company-internal"]
     },
     {
       "type": "companyPublic",
-      "patterns": [".*company-public.*/.*\\.git"]
+      "patterns": ["company-public"]
     }
   ],
   "config": [

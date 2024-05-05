@@ -79,7 +79,7 @@ test("it prints an error when global settings are not correct", () => {
     true,
   );
   expect(dummyShellJs.echoList).toEqual([
-    "FAIL: Expected alias.cb=checkout -b but was alias.cb=IncorrectValue",
+    "FAIL: Expected global alias.cb=checkout -b but was alias.cb=IncorrectValue",
   ]);
 });
 

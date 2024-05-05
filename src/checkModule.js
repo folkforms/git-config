@@ -12,14 +12,14 @@ const checkModule = (
     globalConfigToApply,
     localConfigToApply,
     gitUtils,
-    (key, value, _, mergedConfigValue) => {
+    (key, value, isGlobal, mergedConfigValue) => {
       shell.echo(
-        `FAIL: Expected ${key}=${value} but was ${key}=${mergedConfigValue}`,
+        `FAIL: Expected${isGlobal ? " global" : ""} ${key}=${value} but was ${key}=${mergedConfigValue}`,
       );
     },
-    (key, value, quiet) => {
+    (key, value, isGlobal, quiet) => {
       if (!quiet) {
-        shell.echo(`OK: ${key}=${value}`);
+        shell.echo(`OK${isGlobal ? " (Global)" : ""}: ${key}=${value}`);
       }
     },
     dryRun,

@@ -17,7 +17,7 @@ const sharedModule = (
     if (mergedConfig[key] !== value) {
       funcFailure(key, value, true, mergedConfig[key], dryRun);
     } else {
-      funcSuccess(key, value, quiet);
+      funcSuccess(key, value, true, quiet);
     }
   });
 
@@ -27,7 +27,7 @@ const sharedModule = (
     if (mergedConfig[key] !== value) {
       funcFailure(key, value, false, mergedConfig[key], dryRun);
     } else {
-      funcSuccess(key, value, quiet);
+      funcSuccess(key, value, false, quiet);
     }
   });
 };
