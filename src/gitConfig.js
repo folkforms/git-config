@@ -4,8 +4,10 @@ const gitConfig = (options, gitUtils, shell, actionModule) => {
   if (!options.debug) {
     console.debug = () => {};
   }
-  const config = JSON.parse(fs.readFileSync(options.configFile, "utf8"));
+  let config = JSON.parse(fs.readFileSync(options.configFile, "utf8"));
   console.debug(`config = ${JSON.stringify(config)}`);
+  config = { ...config, ...options };
+  console.debug(`merged config = ${JSON.stringify(config)}`);
 
   let url = gitUtils.getRemoteUrl();
   if (options.usePath) {
