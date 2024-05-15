@@ -1,6 +1,6 @@
 {
   "name": "@folkforms/git-config",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Automatically applies Git configuration options based on regex match of repo path",
   "packageManager": "yarn@4.2.2",
   "main": "index.js",
