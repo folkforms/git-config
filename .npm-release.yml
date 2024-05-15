@@ -1,7 +1,7 @@
 - yarn test
 - yarn line-endings
 - npm whoami
-- yarn install --production --force
+- yarn workspaces focus --production
 - npm version patch
 - npm publish --access=public
 - yarn install
