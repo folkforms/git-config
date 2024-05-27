@@ -15,7 +15,8 @@
       "type": "global",
       "settings": [
         "alias.amend=commit --amend --no-edit",
-        "alias.cb=checkout -b"
+        "alias.cb=checkout -b",
+        "alias.signed=log -s --show-signature -1"
       ]
     },
     {

@@ -9,9 +9,10 @@ git config --global alias.cb "checkout -b"
 git config --global alias.ck "checkout --"
 git config --global alias.db "branch --delete"
 git config --global alias.diffns "diff --name-status"
-git config --global alias.st "status --short"
 git config --global alias.gl "log --all --decorate --oneline --graph -10"
 git config --global alias.gl2 "log --decorate --oneline --graph -10"
+git config --global alias.signed "log -s --show-signature -1"
+git config --global alias.st "status --short"
 ```
 
 ## Git SSH
