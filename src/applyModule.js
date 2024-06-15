@@ -16,6 +16,9 @@ const applyModule = (
       if (key.startsWith("alias.")) {
         value = `"${value}"`;
       }
+      if (key === "user.name") {
+        value = `"${value}"`;
+      }
       const cmd = value
         ? `git config ${isGlobal ? "--global " : ""}${key} ${value}`
         : `git config ${isGlobal ? "--global " : ""}--unset ${key}`;

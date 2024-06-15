@@ -48,7 +48,10 @@ test("it runs the correct command when local settings are not correct", () => {
     localConfig: "user.name=WrongUsername",
   });
   const globalConfigToApply = [];
-  const localConfigToApply = ["user.name=MyCompanyUserName"];
+  const localConfigToApply = [
+    "user.name=My Company User Name",
+    "user.email=correctemail@example.com",
+  ];
   applyModule(
     globalConfigToApply,
     localConfigToApply,
@@ -58,7 +61,8 @@ test("it runs the correct command when local settings are not correct", () => {
     true,
   );
   expect(dummyShellJs.execList).toEqual([
-    "git config user.name MyCompanyUserName",
+    'git config user.name "My Company User Name"',
+    "git config user.email correctemail@example.com",
   ]);
 });
 

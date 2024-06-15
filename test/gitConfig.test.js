@@ -12,7 +12,7 @@ test("it matches repo patterns", () => {
       "alias.signed=log -s --show-signature -1",
     ]);
     expect(localConfigToApply).toEqual([
-      "user.name=MyCompanyUserName",
+      "user.name=My Company User Name",
       "user.email=mycompanyemail@company.com",
       "user.signingkey=SomeSigningKey",
       "commit.gpgsign=true",

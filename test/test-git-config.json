@@ -22,7 +22,7 @@
     {
       "type": "companyInternal",
       "settings": [
-        "user.name=MyCompanyUserName",
+        "user.name=My Company User Name",
         "user.email=mycompanyemail@company.com",
         "user.signingkey=SomeSigningKey",
         "commit.gpgsign=true"
@@ -31,7 +31,7 @@
     {
       "type": "companyPublic",
       "settings": [
-        "user.name=MyPersonalUserName",
+        "user.name=My Personal User Name",
         "user.email=mypersonalemail@example.com",
         "user.signingkey=",
         "commit.gpgsign=false"
