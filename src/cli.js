@@ -11,7 +11,7 @@ const program = new Command();
 program
   .option("-c, --check", "Check that repo settings are correct")
   .option("-a, --apply", "Apply settings to repo")
-  .option("-u, --use-path", "Match against path rather than repo remote")
+  .option("-r, --use-remote", "Match against repo remote url rather than path")
   .option(
     "-n, --dry-run",
     "Print what commands would be run, without actually running anything",
@@ -23,7 +23,7 @@ program
   .parse();
 
 const options = {};
-options.usePath = !!program.opts().usePath;
+options.useRemote = !!program.opts().useRemote;
 options.dryRun = !!program.opts().dryRun;
 options.quiet = !!program.opts().quiet;
 options.debug = !!program.opts().debug;

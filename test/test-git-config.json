@@ -1,9 +1,8 @@
 {
-  "usePath": false,
   "patternMatching": [
     {
       "type": "companyInternal",
-      "patterns": ["company-internal"]
+      "patterns": ["company-internal", "projects/github/git-config"]
     },
     {
       "type": "companyPublic",

@@ -9,9 +9,9 @@ const gitConfig = (options, gitUtils, shell, actionModule) => {
   config = { ...config, ...options };
   console.debug(`merged config = ${JSON.stringify(config)}`);
 
-  let url = gitUtils.getRemoteUrl();
-  if (options.usePath) {
-    url = process.cwd().replaceAll("\\", "/");
+  let url = process.cwd().replaceAll("\\", "/");
+  if (options.useRemote) {
+    url = gitUtils.getRemoteUrl();
   }
   console.debug(`url = ${url}`);
 
