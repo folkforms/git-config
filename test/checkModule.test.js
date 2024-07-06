@@ -10,7 +10,7 @@ test("it does nothing when settings are already correct globally and local setti
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=CorrectUsername"];
-  checkModule(
+  const r = checkModule(
     globalConfigToApply,
     localConfigToApply,
     gitUtils,
@@ -19,6 +19,7 @@ test("it does nothing when settings are already correct globally and local setti
     true,
   );
   expect(dummyShellJs.echoList).toEqual([]);
+  expect(r).toEqual(0);
 });
 
 test("it does nothing when settings are already correct locally", () => {
@@ -30,7 +31,7 @@ test("it does nothing when settings are already correct locally", () => {
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=CorrectUsername"];
-  checkModule(
+  const r = checkModule(
     globalConfigToApply,
     localConfigToApply,
     gitUtils,
@@ -39,6 +40,7 @@ test("it does nothing when settings are already correct locally", () => {
     true,
   );
   expect(dummyShellJs.echoList).toEqual([]);
+  expect(r).toEqual(0);
 });
 
 test("it prints an error when local settings are not correct", () => {
@@ -49,7 +51,7 @@ test("it prints an error when local settings are not correct", () => {
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.name=MyCompanyUserName"];
-  checkModule(
+  const r = checkModule(
     globalConfigToApply,
     localConfigToApply,
     gitUtils,
@@ -60,6 +62,7 @@ test("it prints an error when local settings are not correct", () => {
   expect(dummyShellJs.echoList).toEqual([
     "FAIL: Expected user.name=MyCompanyUserName but was user.name=WrongUsername",
   ]);
+  expect(r).toEqual(1);
 });
 
 test("it prints an error when global settings are not correct", () => {
@@ -70,7 +73,7 @@ test("it prints an error when global settings are not correct", () => {
   });
   const globalConfigToApply = ["alias.cb=checkout -b"];
   const localConfigToApply = [];
-  checkModule(
+  const r = checkModule(
     globalConfigToApply,
     localConfigToApply,
     gitUtils,
@@ -81,6 +84,7 @@ test("it prints an error when global settings are not correct", () => {
   expect(dummyShellJs.echoList).toEqual([
     "FAIL: Expected global alias.cb=checkout -b but was alias.cb=IncorrectValue",
   ]);
+  expect(r).toEqual(1);
 });
 
 test("it prints an error when a local setting that should be unset is set", () => {
@@ -91,7 +95,7 @@ test("it prints an error when a local setting that should be unset is set", () =
   });
   const globalConfigToApply = [];
   const localConfigToApply = ["user.signingkey="];
-  checkModule(
+  const r = checkModule(
     globalConfigToApply,
     localConfigToApply,
     gitUtils,
@@ -102,4 +106,5 @@ test("it prints an error when a local setting that should be unset is set", () =
   expect(dummyShellJs.echoList).toEqual([
     "FAIL: Expected user.signingkey= but was user.signingkey=ShouldBeUnset",
   ]);
+  expect(r).toEqual(1);
 });

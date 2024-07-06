@@ -36,6 +36,7 @@ const applyModule = (
         );
       }
     },
+    false,
     dryRun,
     quiet,
   );

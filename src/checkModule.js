@@ -16,12 +16,15 @@ const checkModule = (
       shell.echo(
         `FAIL: Expected${isGlobal ? " global" : ""} ${key}=${value} but was ${key}=${mergedConfigValue}`,
       );
+      return 1;
     },
     (key, value, isGlobal, quiet) => {
       if (!quiet) {
         shell.echo(`OK${isGlobal ? " (Global)" : ""}: ${key}=${value}`);
       }
+      return 0;
     },
+    true,
     dryRun,
     quiet,
   );
