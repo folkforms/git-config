@@ -24,6 +24,9 @@ const gitConfig = (options, gitUtils, shell, actionModule) => {
     });
   });
   console.debug(`foundTypes = ${JSON.stringify(foundTypes)}`);
+  console.info(`URL: '${url}'`);
+  console.info(`Configs: ${JSON.stringify(foundTypes)}`);
+  console.info(`----`);
 
   const globalConfigToApply = config.config.filter(
     (item) => item.type === "global",
