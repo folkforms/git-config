@@ -15,32 +15,40 @@ const sharedModule = (
   const globalConfigToApplyAsObjects = convertToObjects(globalConfigToApply);
 
   const globalKeys = Object.keys(globalConfigToApplyAsObjects);
+  let globalErrorFound = false;
   for (let i = 0; i < globalKeys.length; i++) {
     const key = globalKeys[i];
     let value = globalConfigToApplyAsObjects[key];
     if (mergedConfig[key] !== value) {
       funcFailure(key, value, true, mergedConfig[key], dryRun);
       if (failOnIncorrectSetting) {
-        return 1;
+        globalErrorFound = true;
       }
     } else {
       funcSuccess(key, value, true, quiet);
     }
   }
+  if (globalErrorFound) {
+    return 1;
+  }
 
   const localConfigToApplyAsObjects = convertToObjects(localConfigToApply);
   const localKeys = Object.keys(localConfigToApplyAsObjects);
+  let localErrorFound = false;
   for (let i = 0; i < localKeys.length; i++) {
     const key = localKeys[i];
     let value = localConfigToApplyAsObjects[key];
     if (mergedConfig[key] !== value) {
       funcFailure(key, value, false, mergedConfig[key], dryRun);
       if (failOnIncorrectSetting) {
-        return 1;
+        localErrorFound = true;
       }
     } else {
       funcSuccess(key, value, false, quiet);
     }
+  }
+  if (localErrorFound) {
+    return 1;
   }
 
   return 0;

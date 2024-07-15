@@ -7,14 +7,14 @@ const checkModule = (
   shell,
   dryRun,
   quiet,
-) =>
-  sharedModule(
+) => {
+  return sharedModule(
     globalConfigToApply,
     localConfigToApply,
     gitUtils,
     (key, value, isGlobal, mergedConfigValue) => {
       shell.echo(
-        `FAIL: Expected${isGlobal ? " global" : ""} ${key}=${value} but was ${key}=${mergedConfigValue}`,
+        `FAIL${isGlobal ? " (Global)" : ""}: Expected${isGlobal ? " global" : ""} ${key}=${value} but was ${key}=${mergedConfigValue}`,
       );
       return 1;
     },
@@ -28,5 +28,6 @@ const checkModule = (
     dryRun,
     quiet,
   );
+};
 
 module.exports = checkModule;

@@ -47,20 +47,25 @@ test("it prints an error when local settings are not correct", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
     globalConfig: "user.name=ArbitraryUserName",
-    localConfig: "user.name=WrongUsername",
+    localConfig:
+      "user.name=WrongUsername\nuser.email=correct_email@example.com",
   });
   const globalConfigToApply = [];
-  const localConfigToApply = ["user.name=MyCompanyUserName"];
+  const localConfigToApply = [
+    "user.name=MyCompanyUserName",
+    "user.email=correct_email@example.com",
+  ];
   const r = checkModule(
     globalConfigToApply,
     localConfigToApply,
     gitUtils,
     dummyShellJs,
     false,
-    true,
+    false,
   );
   expect(dummyShellJs.echoList).toEqual([
     "FAIL: Expected user.name=MyCompanyUserName but was user.name=WrongUsername",
+    "OK: user.email=correct_email@example.com",
   ]);
   expect(r).toEqual(1);
 });
@@ -68,10 +73,13 @@ test("it prints an error when local settings are not correct", () => {
 test("it prints an error when global settings are not correct", () => {
   dummyShellJs._clear();
   const gitUtils = dummyGitUtils({
-    globalConfig: "alias.cb=IncorrectValue",
+    globalConfig: "alias.cb=IncorrectValue\nalias.foo=CorrectValue",
     localConfig: "",
   });
-  const globalConfigToApply = ["alias.cb=checkout -b"];
+  const globalConfigToApply = [
+    "alias.cb=checkout -b",
+    "alias.foo=CorrectValue",
+  ];
   const localConfigToApply = [];
   const r = checkModule(
     globalConfigToApply,
@@ -79,10 +87,11 @@ test("it prints an error when global settings are not correct", () => {
     gitUtils,
     dummyShellJs,
     false,
-    true,
+    false,
   );
   expect(dummyShellJs.echoList).toEqual([
-    "FAIL: Expected global alias.cb=checkout -b but was alias.cb=IncorrectValue",
+    "FAIL (Global): Expected global alias.cb=checkout -b but was alias.cb=IncorrectValue",
+    "OK (Global): alias.foo=CorrectValue",
   ]);
   expect(r).toEqual(1);
 });
