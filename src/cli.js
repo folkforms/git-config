@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+var packageDotJson = require("../package.json");
+
 const { Command, Option } = require("commander");
 const shelljs = require("shelljs");
 const gitConfig = require("./gitConfig");
@@ -18,8 +20,8 @@ program
   )
   .option("-q, --quiet", "Do not print success messages")
   .option("-d, --debug", "Debug mode")
-  .option("-v, --version", "Print version")
   .addOption(new Option("--test <config-file>").hideHelp())
+  .version(packageDotJson.version)
   .parse();
 
 const options = {};
