@@ -11,6 +11,8 @@ git config --global alias.db "branch --delete"
 git config --global alias.diffns "diff --name-status"
 git config --global alias.gl "log --all --decorate --oneline --graph -10"
 git config --global alias.gl2 "log --decorate --oneline --graph -10"
+git config --global alias.gl3 "log --all --decorate --abbrev-commit --pretty='format:%C(auto)%h %s (%ad)' --graph -10"
+git config --global alias.gl4 "log --decorate --abbrev-commit --pretty='format:%C(auto)%h %s (%ad)' --graph -10"
 git config --global alias.signed "log -s --show-signature -1"
 git config --global alias.st "status --short"
 ```
